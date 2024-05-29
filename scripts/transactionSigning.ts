@@ -102,6 +102,7 @@ const ccr: TransactionRequestSuave = {
   data: data,
 };
 
+// @dev it does not work
 const res = await wallet.sendTransaction(ccr);
 console.log(`sent ccr! tx hash: ${res}`);
 
