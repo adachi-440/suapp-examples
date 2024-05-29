@@ -1,5 +1,5 @@
 // plus other imports from above
-import { encodeAbiParameters, encodeFunctionData, Hex, http, toBytes, toHex } from '@flashbots/suave-viem';
+import { decodeEventLog, encodeAbiParameters, encodeFunctionData, Hex, http, toBytes, toHex } from '@flashbots/suave-viem';
 import { getSuaveWallet, SuaveTxRequestTypes, TransactionRequestSuave } from '@flashbots/suave-viem/chains/utils';
 import { getSuaveProvider } from '@flashbots/suave-viem/chains/utils';
 import { sleep } from './helper';
@@ -91,8 +91,16 @@ const data = encodeFunctionData({
   args: [],
 });
 
+const encoder = new TextEncoder();
+const byteArray = encoder.encode(DEFAULT_PRIVATE_KEY);
+const hexString: `0x${string}` = `0x${Array.from(byteArray)
+  .map((byte) => byte.toString(16).padStart(2, "0"))
+  .join("")}`;
+
+console.log("hexString:", hexString)
+
 const ccr: TransactionRequestSuave = {
-  confidentialInputs: DEFAULT_PRIVATE_KEY,
+  confidentialInputs: hexString,
   kettleAddress: '0xB5fEAfbDD752ad52Afb7e1bD2E40432A485bBB7F',
   to: contractAddress,
   gasPrice: 10000000000n,
@@ -105,4 +113,37 @@ const ccr: TransactionRequestSuave = {
 // @dev it does not work
 const res = await wallet.sendTransaction(ccr);
 console.log(`sent ccr! tx hash: ${res}`);
+
+const receipt = await suaveProvider.getTransactionReceipt({
+  hash: res,
+});
+
+const { data: encodedData } = receipt.logs[0];
+const event = decodeEventLog({
+  abi,
+  data: encodedData,
+  topics: receipt.logs[0].topics,
+});
+
+console.log("event", event);
+
+try {
+  if (
+    event.args["r"] !==
+    "0x4f4ca1e5e2c480d840b7dcb170c6db636964aa566308dbe4ff293c7ad28752f8"
+  ) {
+    throw new Error("r does not match");
+  }
+  if (
+    event.args["s"] !==
+    "0x17fcc87c10b66358dcd29bd53c9f73337b8b4cca554af5f4bd1c898d0f51b49a"
+  ) {
+    throw new Error("s does not match");
+  }
+} catch (err: any) {
+  console.error(err);
+}
+
+console.log("Signature Verified");
+
 
