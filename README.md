@@ -110,7 +110,7 @@ Check out the [`/examples/`](/examples/) folder for several example Suapps and `
 You can run command below;
 
 ```bash
-bun run ./script/index.ts
+bun run ./scripts/index.ts
 ```
 
 ---
