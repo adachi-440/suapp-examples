@@ -27,7 +27,7 @@ contract TransactionSigning {
             chainId: 1337
         });
 
-        Transactions.EIP155 memory txn = Transactions.signTxn(txnWithToAddress, string(signingKey));
+        Transactions.EIP155 memory txn = Transactions.signTxn(txnWithToAddress, signingKey);
 
         return abi.encodeWithSelector(this.callback.selector, txn.r, txn.s);
     }
