@@ -190,7 +190,7 @@ type Config struct {
 	// address: 0xBE69d72ca5f88aCba033a063dF5DBe43a4148De0
 	FundedAccount *PrivKey `env:"KETTLE_PRIVKEY, default=91ab9a7e53c220e6210460b65a7a3bb2ca181412a8a7b43ff336b3df1737ce12"`
 
-	L1RPC string `env:"L1_RPC, default=http://localhost:8555"`
+	L1RPC string `env:"L1_RPC, default=https://eth-sepolia.g.alchemy.com/v2/ey6Y_CnSM8Xgw80N3tXaikzraLDtHNQU"`
 
 	// This account is funded in your local L1 devnet
 	// address: 0xB5fEAfbDD752ad52Afb7e1bD2E40432A485bBB7F
@@ -236,6 +236,7 @@ func New(opts ...ConfigOption) *Framework {
 	}
 
 	if config.L1Enabled {
+		log.Printf("L1 RPC: %s", config.L1RPC)
 		l1RPC, err := rpc.Dial(config.L1RPC)
 		if err != nil {
 			panic(err)

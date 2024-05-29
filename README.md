@@ -38,6 +38,7 @@ Install dependencies:
 
 ```bash
 forge install
+yarn intall
 ```
 
 Compile:
@@ -59,31 +60,29 @@ forge build
 
 2. Run
 
-    ```bash
-    # Launch kurtosis devnet + sidecar docker-compose with SUAVE
-    make devnet-up
+   ```bash
+   # Launch kurtosis devnet + sidecar docker-compose with SUAVE
+   make devnet-up
 
-    # Point SUAVE examples to the devnet
-    export BUILDER_URL=http://el-4-geth-builder-lighthouse:8545
-    export L1_PRIVKEY=bcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31
+   # Point SUAVE examples to the devnet
+   export BUILDER_URL=http://el-4-geth-builder-lighthouse:8545
+   export L1_PRIVKEY=bcdf20249abf0ed6d944c0288fad489e33f66b3960d9e6229c1cd214ed3bbe31
 
-    # Run
-    go run examples/app-ofa-private/main.go
+   # Run
+   go run examples/app-ofa-private/main.go
 
-    # Tear-down
-    make devnet-down
-    ```
+   # Tear-down
+   make devnet-down
+   ```
 
->
 > **Notes:**
 >
 > 1. If you are Mac OS user, you might want to consider using
 >    [OrbStack](https://orbstack.dev/) instead of Docker Desktop.
 >
 > 2. Some of the tests (`app-ofa-private`, for example) will need Eth
->    devnet to progress beyond dencun fork.  Wait out ~5m after the
+>    devnet to progress beyond dencun fork. Wait out ~5m after the
 >    start before running them (roughly slot 128).
->
 
 ### Details
 
@@ -102,7 +101,17 @@ Please check `https://github.com/kurtosis-tech/ethereum-package` for more info.
 
 ## Run the examples
 
+### Go
+
 Check out the [`/examples/`](/examples/) folder for several example Suapps and `main.go` files to deploy and run them!
+
+### Typescript
+
+You can run command below;
+
+```bash
+bun run ./script/index.ts
+```
 
 ---
 

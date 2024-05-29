@@ -27,4 +27,5 @@ func main() {
 	if hex.EncodeToString(s[:]) != "5d5e1aafa0c964b43c251b6a525d49572968f2cebc5868c58bcc9281b9a07505" {
 		log.Fatal("wrong s signature")
 	}
+	log.Println("Signature validated")
 }

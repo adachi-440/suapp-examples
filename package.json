@@ -1,0 +1,11 @@
+{
+  "name": "suapp-examples",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/adachi-440/suapp-examples.git",
+  "author": "adachi_440 <tomoki1999314@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@flashbots/suave-viem": "^1.14.3"
+  }
+}

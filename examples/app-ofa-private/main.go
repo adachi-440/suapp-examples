@@ -48,6 +48,7 @@ func main() {
 	log.Printf("Test address 1: %s", testAddr1.Address().Hex())
 	log.Printf("Test address 2: %s", testAddr2.Address().Hex())
 
+
 	fundBalance := big.NewInt(100000000000000000)
 	if err := fr.L1.FundAccount(testAddr1.Address(), fundBalance); err != nil {
 		log.Fatal(err)
